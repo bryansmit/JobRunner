@@ -1,6 +1,8 @@
 package me.bryansmit;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 public class JobManager {
 
@@ -10,14 +12,24 @@ public class JobManager {
         this.jobs = new HashMap<>();
     }
 
-    public Job createNew(String thirdParam, String fourthParam) {
-        Job newJob = new Job(thirdParam, fourthParam, JobStatus.PENDING);
-        jobs.put(jobs.size() + 1, newJob);
+    public Job create(Command command) {
+        int id = jobs.size() + 1;
+
+        Job newJob = new Job(id, command.argument(), JobStatus.PENDING);
+        jobs.put(id, newJob);
 
         return newJob;
     }
 
-    public HashMap<Integer, Job> getJobs() {
-        return jobs;
+    public Optional<Job> find(int id) {
+        return Optional.ofNullable(this.jobs.get(id));
+    }
+
+    public List<Job> findAll() {
+        return List.copyOf(this.jobs.values());
+    }
+
+    public void delete(int id) {
+        this.jobs.remove(id);
     }
 }

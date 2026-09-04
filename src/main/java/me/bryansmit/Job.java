@@ -1,3 +1,3 @@
 package me.bryansmit;
 
-public record Job (String name, String task, JobStatus status) { }
+public record Job (int id, String task, JobStatus status) { }
