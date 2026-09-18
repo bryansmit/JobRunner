@@ -15,7 +15,7 @@ public class JobManager {
     public Job create(Command command) {
         int id = jobs.size() + 1;
 
-        Job newJob = new Job(id, command.argument(), JobStatus.PENDING);
+        Job newJob = new Job(id, command.name(), command.argument(), JobStatus.PENDING, null, -1);
         jobs.put(id, newJob);
 
         return newJob;

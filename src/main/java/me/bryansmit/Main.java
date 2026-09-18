@@ -8,8 +8,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static final String CREATE_COMMAND = "create";
-
     private final JobManager jobManager;
 
     public Main() {
@@ -17,11 +15,11 @@ public class Main {
     }
 
 
-    static void main(String[] args) {
-        new Main().start(args);
+    static void main() {
+        new Main().start();
     }
 
-    private void start(String[] args) {
+    private void start() {
         Scanner scanner = new Scanner(System.in);
         boolean notExit = true;
 
@@ -50,7 +48,7 @@ public class Main {
 
                     break;
                 case CommandType.LIST:
-                    this.jobManager.findAll().forEach((j) -> System.out.printf("[%d] -> %s\n", j.id(), j.task()));
+                    this.jobManager.findAll().forEach((j) -> System.out.printf("[%d] %s -> %s\n", j.id(), j.name(), j.command()));
 
                     break;
                 case CommandType.DELETE:
@@ -70,7 +68,7 @@ public class Main {
                         continue;
                     }
 
-                    System.out.printf("[%d] -> %s (%s)\n", foundJob.id(), foundJob.task(), foundJob.status());
+                    System.out.printf("[%d] %s -> %s (%s)\n", foundJob.id(), foundJob.name(), foundJob.command(), foundJob.status());
 
                     break;
                 case CommandType.EXIT:

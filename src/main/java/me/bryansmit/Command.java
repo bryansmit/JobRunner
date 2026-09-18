@@ -1,3 +1,3 @@
 package me.bryansmit;
 
-public record Command(CommandType type, String argument) { }
+public record Command(CommandType type, String name, String argument) { }
