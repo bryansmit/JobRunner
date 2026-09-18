@@ -12,10 +12,10 @@ public class JobManager {
         this.jobs = new HashMap<>();
     }
 
-    public Job create(Command command) {
+    public Job create(String name, String shellCommand) {
         int id = jobs.size() + 1;
 
-        Job newJob = new Job(id, command.name(), command.argument(), JobStatus.PENDING, null, -1);
+        Job newJob = new Job(id, name, shellCommand, JobStatus.PENDING, null, -1);
         jobs.put(id, newJob);
 
         return newJob;

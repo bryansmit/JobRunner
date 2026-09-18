@@ -1,6 +1,7 @@
 package me.bryansmit;
 
 import me.bryansmit.utils.CommandParser;
+import me.bryansmit.utils.ParseResult;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -23,7 +24,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean notExit = true;
 
-        while (notExit) {
+        while (scanner.hasNextLine() && notExit) {
             System.out.print("> ");
 
             String input = scanner.nextLine().trim();
@@ -32,37 +33,35 @@ public class Main {
                 continue;
             }
 
-            Optional<Command> optionalCommand = CommandParser.parse(input);
-            Command command = optionalCommand.orElse(null);
+            ParseResult parseResult = CommandParser.parse(input);
 
-            if (command == null) {
-                System.out.println("Invalid command.");
+            if (parseResult instanceof ParseResult.Error(String message)) {
+                System.out.println(message);
                 continue;
             }
 
-            switch (command.type()) {
-                case CommandType.CREATE:
-                    Job job = this.jobManager.create(command);
+            Command command = ((ParseResult.Ok) parseResult).command();
+
+            switch (command) {
+                case Command.Create createCommand:
+                    Job job = this.jobManager.create(createCommand.name(), createCommand.shellCommand());
 
                     System.out.println("Created job: " + job.id());
 
                     break;
-                case CommandType.LIST:
+                case Command.List _:
                     this.jobManager.findAll().forEach((j) -> System.out.printf("[%d] %s -> %s\n", j.id(), j.name(), j.command()));
 
                     break;
-                case CommandType.DELETE:
-                    this.jobManager.delete(Integer.parseInt(command.argument()));
+                case Command.Delete deleteCommand:
+                    this.jobManager.delete(deleteCommand.jobId());
 
                     break;
-                case CommandType.FIND:
+                case Command.Find findCommand:
                     Job foundJob;
 
                     try {
-                        foundJob = this.jobManager.find(Integer.parseInt(command.argument())).orElseThrow();
-                    } catch (NumberFormatException exception) {
-                        System.out.println("Use the find with a valid job ID.");
-                        continue;
+                        foundJob = this.jobManager.find(findCommand.jobId()).orElseThrow();
                     } catch (NoSuchElementException exception) {
                         System.out.println("Job not found.");
                         continue;
@@ -71,9 +70,11 @@ public class Main {
                     System.out.printf("[%d] %s -> %s (%s)\n", foundJob.id(), foundJob.name(), foundJob.command(), foundJob.status());
 
                     break;
-                case CommandType.EXIT:
+                case Command.Exit _:
                     System.out.println("You are leaving the application.");
                     notExit = false;
+                    break;
+                case Command.Run runCommand:
                     break;
             }
         }
