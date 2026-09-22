@@ -1,4 +1,4 @@
-package me.bryansmit;
+package me.bryansmit.cli;
 
 public sealed interface Command {
     record Create(String name, String shellCommand) implements Command {

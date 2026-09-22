@@ -1,7 +1,4 @@
-package me.bryansmit.utils;
-
-import me.bryansmit.Command;
-import me.bryansmit.CommandType;
+package me.bryansmit.cli;
 
 import java.util.Optional;
 

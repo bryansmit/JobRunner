@@ -1,4 +1,4 @@
-package me.bryansmit;
+package me.bryansmit.job;
 
 public enum JobStatus {
     PENDING,

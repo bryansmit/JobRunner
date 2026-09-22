@@ -1,6 +1,4 @@
-package me.bryansmit.utils;
-
-import me.bryansmit.Command;
+package me.bryansmit.cli;
 
 public sealed interface ParseResult {
     record Ok(Command command) implements ParseResult {

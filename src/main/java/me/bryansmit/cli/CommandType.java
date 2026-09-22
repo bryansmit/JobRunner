@@ -1,4 +1,4 @@
-package me.bryansmit;
+package me.bryansmit.cli;
 
 public enum CommandType {
     CREATE,

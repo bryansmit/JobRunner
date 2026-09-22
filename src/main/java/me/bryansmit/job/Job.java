@@ -1,4 +1,4 @@
-package me.bryansmit;
+package me.bryansmit.job;
 
 import java.util.UUID;
 

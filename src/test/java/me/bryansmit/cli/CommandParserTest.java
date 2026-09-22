@@ -1,7 +1,6 @@
-package me.bryansmit.utils;
+package me.bryansmit.cli;
 
 
-import me.bryansmit.Command;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

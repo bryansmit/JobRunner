@@ -1,7 +1,10 @@
 package me.bryansmit;
 
-import me.bryansmit.utils.CommandParser;
-import me.bryansmit.utils.ParseResult;
+import me.bryansmit.cli.Command;
+import me.bryansmit.cli.CommandParser;
+import me.bryansmit.job.Job;
+import me.bryansmit.job.JobManager;
+import me.bryansmit.cli.ParseResult;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
