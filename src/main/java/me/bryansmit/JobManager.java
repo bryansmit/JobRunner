@@ -1,22 +1,14 @@
 package me.bryansmit;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class JobManager {
 
-    private final HashMap<Integer, Job> jobs;
-
-    public JobManager() {
-        this.jobs = new HashMap<>();
-    }
+    private final ArrayList<Job> jobs = new ArrayList<>();
 
     public Job create(String name, String shellCommand) {
-        int id = jobs.size() + 1;
-
-        Job newJob = new Job(id, name, shellCommand, JobStatus.PENDING, null, -1);
-        jobs.put(id, newJob);
+        Job newJob = new Job(UUID.randomUUID(), name, shellCommand, JobStatus.PENDING, null, -1);
+        jobs.add(newJob);
 
         return newJob;
     }
@@ -25,8 +17,14 @@ public class JobManager {
         return Optional.ofNullable(this.jobs.get(id));
     }
 
-    public List<Job> findAll() {
-        return List.copyOf(this.jobs.values());
+    public HashMap<Integer, Job> findAll() {
+        HashMap<Integer, Job> map = new HashMap<>();
+
+        for (Job job : jobs) {
+            map.put(this.jobs.indexOf(job), job);
+        }
+
+        return map;
     }
 
     public void delete(int id) {

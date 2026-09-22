@@ -1,3 +1,5 @@
 package me.bryansmit;
 
-public record Job (int id, String name, String command, JobStatus status, String output, int exitCode) { }
+import java.util.UUID;
+
+public record Job (UUID id, String name, String command, JobStatus status, String output, int exitCode) { }

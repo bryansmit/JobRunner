@@ -4,7 +4,6 @@ import me.bryansmit.utils.CommandParser;
 import me.bryansmit.utils.ParseResult;
 
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
@@ -33,7 +32,7 @@ public class Main {
                 continue;
             }
 
-            ParseResult parseResult = CommandParser.parse(input);
+            ParseResult parseResult = (new CommandParser()).parse(input);
 
             if (parseResult instanceof ParseResult.Error(String message)) {
                 System.out.println(message);
@@ -50,7 +49,7 @@ public class Main {
 
                     break;
                 case Command.List _:
-                    this.jobManager.findAll().forEach((j) -> System.out.printf("[%d] %s -> %s\n", j.id(), j.name(), j.command()));
+                    this.jobManager.findAll().forEach((i, j) -> System.out.printf("[%d] %s -> %s\n", i, j.name(), j.command()));
 
                     break;
                 case Command.Delete deleteCommand:
@@ -67,7 +66,7 @@ public class Main {
                         continue;
                     }
 
-                    System.out.printf("[%d] %s -> %s (%s)\n", foundJob.id(), foundJob.name(), foundJob.command(), foundJob.status());
+                    System.out.printf("[%s] %s -> %s (%s)\n", foundJob.id(), foundJob.name(), foundJob.command(), foundJob.status());
 
                     break;
                 case Command.Exit _:
